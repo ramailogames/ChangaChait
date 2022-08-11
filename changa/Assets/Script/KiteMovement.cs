@@ -12,7 +12,7 @@ public class KiteMovement : MonoBehaviour
 
     //comp
     Rigidbody2D rb;
-   
+    [SerializeField] GameObject deathVfx;
 
 
 
@@ -104,6 +104,10 @@ public class KiteMovement : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            Instantiate(deathVfx, transform.position, transform.rotation);
+            FindObjectOfType<AudioManagerCS>().Play("pop");
+            FindObjectOfType<GameManager>().Invoke_ShowGameOver();
+            Destroy(collision.gameObject);
             Destroy(gameObject);
         }
     }
