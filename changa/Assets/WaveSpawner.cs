@@ -7,9 +7,12 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] GameObject[] obstacles;
     [SerializeField] GameObject cluster;
     [SerializeField] GameObject crow;
+    [SerializeField] GameObject enemyKite;
+
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] Transform clusterSpawnPoint;
-    [SerializeField] Transform crowSpawnPoint;
+    [SerializeField] Transform[] crowSpawnPoints;
+    [SerializeField] Transform enemyKitePoint;
 
     [SerializeField] float spawnDelay;
 
@@ -18,7 +21,7 @@ public class WaveSpawner : MonoBehaviour
     {
         InvokeRepeating("Spawn", 2, spawnDelay);
         InvokeRepeating("Spawn_", 5, 5);
-        InvokeRepeating("SpawnCrow", 4,7);
+        InvokeRepeating("CrowAndKite", 4,7);
     }
 
   
@@ -35,9 +38,25 @@ public class WaveSpawner : MonoBehaviour
         Instantiate(cluster, clusterSpawnPoint.position, clusterSpawnPoint.rotation);
     }
 
+    void CrowAndKite()
+    {
+        int index = Random.Range(1, 3);
+        if(index > 1)
+        {
+            SpawnKite();
+            return;
+        }
+        SpawnCrow();
+    }
     void SpawnCrow()
     {
-        Instantiate(crow, crowSpawnPoint.position, crowSpawnPoint.rotation);
+        int csp = Random.Range(0, crowSpawnPoints.Length);
+        Instantiate(crow, crowSpawnPoints[csp].position, crowSpawnPoints[csp].rotation);
+    }
+
+    void SpawnKite()
+    {
+        Instantiate(enemyKite, enemyKitePoint.position, enemyKitePoint.rotation);
     }
 
 
