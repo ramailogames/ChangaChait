@@ -6,8 +6,10 @@ public class WaveSpawner : MonoBehaviour
 {
     [SerializeField] GameObject[] obstacles;
     [SerializeField] GameObject cluster;
+    [SerializeField] GameObject crow;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] Transform clusterSpawnPoint;
+    [SerializeField] Transform crowSpawnPoint;
 
     [SerializeField] float spawnDelay;
 
@@ -16,6 +18,7 @@ public class WaveSpawner : MonoBehaviour
     {
         InvokeRepeating("Spawn", 2, spawnDelay);
         InvokeRepeating("Spawn_", 5, 5);
+        InvokeRepeating("SpawnCrow", 4,7);
     }
 
   
@@ -31,4 +34,11 @@ public class WaveSpawner : MonoBehaviour
     {
         Instantiate(cluster, clusterSpawnPoint.position, clusterSpawnPoint.rotation);
     }
+
+    void SpawnCrow()
+    {
+        Instantiate(crow, crowSpawnPoint.position, crowSpawnPoint.rotation);
+    }
+
+
 }

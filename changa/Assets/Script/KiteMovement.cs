@@ -13,7 +13,7 @@ public class KiteMovement : MonoBehaviour
     //comp
     Rigidbody2D rb;
     [SerializeField] GameObject deathVfx;
-
+    GameManager manager;
 
 
   
@@ -21,6 +21,7 @@ public class KiteMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        manager = FindObjectOfType<GameManager>();
     }
 
 
@@ -48,7 +49,10 @@ public class KiteMovement : MonoBehaviour
     void Update()
     {
 
-     
+        if (!manager.hasGameStarted)
+        {
+            return;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -72,11 +76,18 @@ public class KiteMovement : MonoBehaviour
 
     void CheckAndMove()
     {
+
+        if (!manager.hasGameStarted)
+        {
+            transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+            return;
+        }
+
         if (isMovingRight)
         {
            
-            transform.Translate(Vector2.down * Time.deltaTime * moveSpeed);
-            targetAngle.z = 80f;
+            transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+            targetAngle.z = -80f;
 
             currentAngle = new Vector3(
                 Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime),
@@ -88,8 +99,8 @@ public class KiteMovement : MonoBehaviour
         }
 
       
-        transform.Translate(Vector2.down * Time.deltaTime * moveSpeed);
-        targetAngle.z = -80f;
+        transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+        targetAngle.z = 80f;
 
         currentAngle = new Vector3(
             Mathf.LerpAngle(currentAngle.x, targetAngle.x, Time.deltaTime),
@@ -104,9 +115,11 @@ public class KiteMovement : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            Debug.Log(collision.gameObject.name);
             Instantiate(deathVfx, transform.position, transform.rotation);
             FindObjectOfType<AudioManagerCS>().Play("pop");
-            FindObjectOfType<GameManager>().Invoke_ShowGameOver();
+            manager.Invoke_ShowGameOver();
+            manager.hasGameOver = true;
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
