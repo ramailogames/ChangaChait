@@ -6,6 +6,7 @@ public class KiteMovement : MonoBehaviour
 {
     //var
     [SerializeField] float moveSpeed;
+    float currentMoveSpeed;
     bool isMovingRight = true;
     private Vector3 targetAngle = new Vector3(0f, 0f, 0f);
     private Vector3 currentAngle;
@@ -28,11 +29,13 @@ public class KiteMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
 
- 
-      
-        currentAngle = transform.eulerAngles;
+
+
+        currentMoveSpeed = moveSpeed;
+          currentAngle = transform.eulerAngles;
+
+        InvokeRepeating("IncreaseSpeed", 2f, 5f);
     }
 
 
@@ -74,19 +77,31 @@ public class KiteMovement : MonoBehaviour
 
     }
 
+
+    void IncreaseSpeed()
+    {
+        if(currentMoveSpeed >= 8)
+        {
+            currentMoveSpeed = 8;
+            return;
+        }
+
+        currentMoveSpeed++;
+    }
+
     void CheckAndMove()
     {
 
         if (!manager.hasGameStarted)
         {
-            transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+            transform.Translate(Vector2.up * Time.deltaTime * currentMoveSpeed);
             return;
         }
 
         if (isMovingRight)
         {
            
-            transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+            transform.Translate(Vector2.up * Time.deltaTime * currentMoveSpeed);
             targetAngle.z = -80f;
 
             currentAngle = new Vector3(
@@ -99,7 +114,7 @@ public class KiteMovement : MonoBehaviour
         }
 
       
-        transform.Translate(Vector2.up * Time.deltaTime * moveSpeed);
+        transform.Translate(Vector2.up * Time.deltaTime * currentMoveSpeed);
         targetAngle.z = 80f;
 
         currentAngle = new Vector3(

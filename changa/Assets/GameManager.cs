@@ -8,13 +8,28 @@ public class GameManager : MonoBehaviour
     public bool hasGameStarted = false;
     public bool hasGameOver = false;
 
+    [HideInInspector] public float playedTime = 0;
+
+    private void OnEnable()
+    {
+        playedTime = 0;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    private void Update()
+    {
+        if (hasGameOver)
+        {
+            return;
+        }
 
+        playedTime += Time.deltaTime;
+    }
     public void Invoke_ShowGameOver()
     {
         Invoke("ShowGameOver", .8f);

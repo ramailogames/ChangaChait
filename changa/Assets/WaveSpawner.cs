@@ -43,10 +43,11 @@ public class WaveSpawner : MonoBehaviour
         int index = Random.Range(1, 3);
         if(index > 1)
         {
+            // SpawnKite();
             SpawnKite();
             return;
         }
-        SpawnCrow();
+        SpawnKite();
     }
     void SpawnCrow()
     {
