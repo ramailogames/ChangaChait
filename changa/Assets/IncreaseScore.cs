@@ -7,7 +7,8 @@ public class IncreaseScore : MonoBehaviour
     RamailoGamesScoreManager scoreManager;
     GameManager manager;
 
-
+   
+   
     private void Awake()
     {
         scoreManager = FindObjectOfType<RamailoGamesScoreManager>();
@@ -17,7 +18,7 @@ public class IncreaseScore : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("IncreaseScorePerX", 3f, 2f);
+        InvokeRepeating("IncreaseScorePerX", 3f, 1f);
     }
 
     void IncreaseScorePerX()
@@ -27,7 +28,7 @@ public class IncreaseScore : MonoBehaviour
         {
             return;
         }
-        scoreManager.AddScore(10f);
+        scoreManager.AddScore(manager.scoreToAdd);
         
     }
 

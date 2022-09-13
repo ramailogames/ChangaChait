@@ -33,9 +33,9 @@ public class KiteMovement : MonoBehaviour
 
 
         currentMoveSpeed = moveSpeed;
-          currentAngle = transform.eulerAngles;
+        currentAngle = transform.eulerAngles;
 
-        InvokeRepeating("IncreaseSpeed", 2f, 5f);
+        InvokeRepeating("IncreaseSpeed", 10f, 10f);
     }
 
 
@@ -80,12 +80,17 @@ public class KiteMovement : MonoBehaviour
 
     void IncreaseSpeed()
     {
-        if(currentMoveSpeed >= 8)
+        if (manager.hasGameOver)
         {
-            currentMoveSpeed = 8;
+            return;
+        }
+        if(currentMoveSpeed >= 10)
+        {
+            currentMoveSpeed = 10;
             return;
         }
 
+        manager.scoreToAdd += 5;
         currentMoveSpeed++;
     }
 
@@ -130,11 +135,11 @@ public class KiteMovement : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
+            manager.hasGameOver = true;
             Debug.Log(collision.gameObject.name);
             Instantiate(deathVfx, transform.position, transform.rotation);
             FindObjectOfType<AudioManagerCS>().Play("pop");
             manager.Invoke_ShowGameOver();
-            manager.hasGameOver = true;
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }

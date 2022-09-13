@@ -47,17 +47,22 @@ public class WaveSpawner : MonoBehaviour
             SpawnKite();
             return;
         }
-        SpawnKite();
+        SpawnCrow();
     }
+
     void SpawnCrow()
     {
         int csp = Random.Range(0, crowSpawnPoints.Length);
         Instantiate(crow, crowSpawnPoints[csp].position, crowSpawnPoints[csp].rotation);
     }
-
+    
     void SpawnKite()
     {
-        Instantiate(enemyKite, enemyKitePoint.position, enemyKitePoint.rotation);
+        GameObject ktie =  Instantiate(enemyKite, enemyKitePoint.position, enemyKitePoint.rotation);
+        ktie.transform.SetParent(enemyKitePoint);
+        ktie.transform.parent = enemyKitePoint;
+
+
     }
 
 

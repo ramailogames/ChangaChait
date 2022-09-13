@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
     public bool hasGameOver = false;
 
     [HideInInspector] public float playedTime = 0;
-
+    public int scoreToAdd = 10;
     private void OnEnable()
     {
         playedTime = 0;
+        scoreToAdd = 10;
     }
 
     // Start is called before the first frame update
@@ -36,6 +37,8 @@ public class GameManager : MonoBehaviour
     }
     void ShowGameOver()
     {
+        hasGameOver = true;
+        FindObjectOfType<AdAfter>().CheckToShowAd();
         gameoverView.SetActive(true);
     }
 }

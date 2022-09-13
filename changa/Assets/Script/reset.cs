@@ -8,6 +8,7 @@ public class reset : MonoBehaviour
     private void Awake()
     {
         FindObjectOfType<audiosettings>().Reset_();
+        PlayerPrefs.SetInt("gamePlayNumber", 0);
     }
 
   
