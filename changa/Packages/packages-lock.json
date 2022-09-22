@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.ramailogames.scoreapi": {
-      "version": "file:C:/Users/Akash/Documents/scoreapi-main",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.2d.animation": {
       "version": "7.0.4",
       "depth": 1,

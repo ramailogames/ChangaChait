@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     void ShowGameOver()
     {
         hasGameOver = true;
-        FindObjectOfType<AdAfter>().CheckToShowAd();
+       // FindObjectOfType<AdAfter>().CheckToShowAd();
         gameoverView.SetActive(true);
     }
 }

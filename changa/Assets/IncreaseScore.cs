@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class IncreaseScore : MonoBehaviour
 {
-    RamailoGamesScoreManager scoreManager;
+    ScoreManager scoreManager;
     GameManager manager;
 
    
    
     private void Awake()
     {
-        scoreManager = FindObjectOfType<RamailoGamesScoreManager>();
+        scoreManager = FindObjectOfType<ScoreManager>();
         manager = FindObjectOfType<GameManager>();
     }
 
@@ -28,7 +28,8 @@ public class IncreaseScore : MonoBehaviour
         {
             return;
         }
-        scoreManager.AddScore(manager.scoreToAdd);
+
+        scoreManager.AddScore();
         
     }
 
