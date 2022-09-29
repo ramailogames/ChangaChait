@@ -7,5 +7,6 @@ public class SubmitScore : MonoBehaviour
     private void OnEnable()
     {
         FindObjectOfType<ScoreManager>().SumbitScore();
+        FindObjectOfType<Inersitial>().RequestAd_Interstitial();
     }
 }
